@@ -13,6 +13,7 @@ interface Todo {
 	name: string;
 	date?: number;  //? tells us date param is optional
 	completed: boolean;
+	id?: number;
 }
 var todo: Todo = {
 	name: 'hello',
@@ -25,17 +26,26 @@ var todo: Todo = {
 
 //****************************************************************************************
 // Interface describing a class
-interface TodoService {
+interface ITodoService {
 	getById(todoId: number): Todo; // function whose param is a number and returns an object of type Todo
 	getAll(): Todo[];
 	delete(todoId: number): void; //void keyword is for method that doesn't return anything
 	addTodo(todo: Todo): Todo;
-	updateTodo(todo: Todo, todoId: number): Todo
+	updateTodo(todo: Todo, todoId: number): void
 }
 
-class TodoService {
+abstract class TodoUtility {
+	prepareTodo(todo) {
+		todo.id = new Date().getTime()
+		return todo;
+	}
+}
 
-	constructor(private todos: Todo[] = []) {}
+class TodoService extends TodoUtility implements ITodoService {
+
+	constructor(private todos: Todo[] = []) {
+		super()
+	}
 
 	getById(todoId) {
 		return this.todos[todoId]
@@ -54,7 +64,7 @@ class TodoService {
 		return todo
 	}
 
-	update(todo, todoId) {
+	updateTodo(todo, todoId) {
 		this.todos = this.todos.map( (oldTodo, index) => index === todoId ? todo : oldTodo)
 	}
 }
