@@ -1,6 +1,10 @@
 var myName = "nasser";
 var helloWorld = function (hello) { return function (world) { return hello + " " + world; }; };
 console.log(helloWorld('hello')('world') + ", " + myName);
+var todo = {
+    name: 'hello',
+    completed: false
+};
 var TodoService = /** @class */ (function () {
     function TodoService(todos) {
         if (todos === void 0) { todos = []; }
@@ -24,6 +28,7 @@ var TodoService = /** @class */ (function () {
     };
     return TodoService;
 }());
+//*******************************************************************************************
 var todoService = new TodoService();
 console.log(todoService.getAll());
 var func = function (low, high) {

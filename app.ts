@@ -7,16 +7,26 @@ console.log(`${helloWorld('hello')('world')}, ${myName}`)
 
 
 
-
+//******************************************************************************************
 // Interfaces define the types for properties and methods of and object or class
 interface Todo {
 	name: string;
 	date?: number;  //? tells us date param is optional
 	completed: boolean;
 }
+var todo: Todo = {
+	name: 'hello',
+	completed: false
+}
+//************************************************************************************************
 
+
+
+
+//****************************************************************************************
+// Interface describing a class
 interface TodoService {
-	getById(todoId: number): Todo;
+	getById(todoId: number): Todo; // function whose param is a number and returns an object of type Todo
 	getAll(): Todo[];
 	delete(todoId: number): void; //void keyword is for method that doesn't return anything
 	addTodo(todo: Todo): Todo;
@@ -48,6 +58,9 @@ class TodoService {
 		this.todos = this.todos.map( (oldTodo, index) => index === todoId ? todo : oldTodo)
 	}
 }
+//*******************************************************************************************
+
+
 
 var todoService = new TodoService();
 console.log(todoService.getAll())
